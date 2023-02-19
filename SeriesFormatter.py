@@ -7,7 +7,6 @@ import wbgapi.data as wdata
 import json
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 
 '''
     Class that reads in desired series vs JSON, pulls data from WB,

@@ -11,7 +11,6 @@ from SeriesFormatter import *
 
 
 
-
 sf = SeriesFormatter()
 sf.get_series_id()
 #    sf.pull_compile_data()
