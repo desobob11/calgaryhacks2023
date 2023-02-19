@@ -8,50 +8,64 @@ import pandas as pd
 from dash import Dash, dcc, html, Input, Output, State
 from dash import dash_table
 
+app = Dash(__name__)
 
 
 class SeriesSelection:
-    app = Dash(__name__)
+    #app = Dash(__name__)
     def __init__(self):
         self._app = Dash(__name__)
         self._sf = SeriesFormatter()
         self._series = None
         self._regions = None
         self.load_options()
-        self._series_options = [i for i in self._series.keys()]
-        self._regions_options = ["%s - %s" % (i, self._regions[i]) for i in self._regions.keys()]
-        self._selected_series = dash_table.DataTable(pd.DataFrame(columns=["Series", "Region"]).to_dict())
 
-        self._text = html.Label("Null")
-        self.select_button = html.Button("Add Series", id="select")
+        _series_options = [i for i in self._series.keys()]
+        _regions_options = ["%s - %s" % (i, self._regions[i]) for i in self._regions.keys()]
+        _selected_series = dcc.Textarea(contentEditable=False, id="selected")
+
+        _text = html.Div(children="Hello", id="testlabel")
+        _select_button = html.Button("Add Series", id="select", n_clicks = 0)
+        _series_dropdown = dcc.Dropdown(options=_series_options, value="Choose series...", multi=True, id="series")
+        _regions_dropdown = dcc.Dropdown(options=_series_options, value="Choose series...", multi=True, id="series")
+        #build_view()
+
+        self._app.layout = html.Div(children=[
+            dcc.Textarea(contentEditable=False, id="selected"),
+            html.Div(children="Hello", id="testlabel"),
+            html.Button("Add Series", id="select", n_clicks = 0),
+            dcc.Dropdown(options=_series_options, value="Choose series...", multi=True, id="series"),
+            dcc.Dropdown(options=_series_options, value="Choose series...", multi=True, id="series")
+        ])
+        if self._app is not None and hasattr(self, "callbacks"):
+            self.callbacks(self._app)
+
 
     def build_view(self):
 
 
-        series_dropdown = dcc.Dropdown(options=self._series_options, value="Choose series...")
-        regions_dropdown = dcc.Dropdown(options=self._regions_options, value="Choose region...")
         self._app.layout = html.Div(children=[
-            series_dropdown,
-            regions_dropdown,
-            self._selected_series
-        ])
+            self._text,
+            self._series_dropdown,
+            self._regions_dropdown,
+            self._selected_series,
+            self._select_button
+       ])
 
 
-    def refresh_view(self):
-        @self.app.callback(
-            Output(),
-            Input('select'),
-            State('input-on-submit', 'value')
+    def callbacks(self, _app):
+
+        @_app.callback(
+            Output('select', 'children'),
+            Input('select', 'n_clicks')
         )
         def refresh():
+            self._app
 
-            series_dropdown = dcc.Dropdown(options=self._series_options, value="Choose series...")
-            regions_dropdown = dcc.Dropdown(options=self._regions_options, value="Choose region...")
+            return "it worked"
+        _app.run_server()
 
-            self._app.layout = html.Div(children=[
-                series_dropdown,
-                regions_dropdown
-            ])
+
 
 
     def load_options(self):
@@ -66,20 +80,22 @@ class SeriesSelection:
         return self._sf
 
 
-    def enable_view(self):
-        self._app.run_server(port=8001)
+    #def enable_view(self):
+      #  self._app.run_server(port=8001)
 
 
 def main():
     ss = SeriesSelection()
     sf = SeriesFormatter()
     sf.get_series_id()
-   # sf.pull_compile_data()
+#    sf.pull_compile_data()
+
 
     ss._sf = sf
     ss.load_options()
-    ss.build_view()
-    ss.enable_view()
+    #ss.build_view()
+    #ss.enable_view()
+
 
 
 if __name__ == "__main__":
