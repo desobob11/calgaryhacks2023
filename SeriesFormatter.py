@@ -19,7 +19,7 @@ class SeriesFormatter:
     def __init__(self):
         #TODO: hardcode for now, REMEMBER THIS SHOULD BE INPUT BY JSON AT THE END
        #self._series = None
-        self._series = {"Forest area (% of land area)" : ["AFE", "AFW"]}
+        #self._series = {"Forest area (% of land area)" : ["AFE", "AFW"]}
 
         # data frames of data, each "series" has a data frame
         # containing observations for all regions associated with it from
@@ -36,11 +36,11 @@ class SeriesFormatter:
         each desired series name to its id for querying
     '''
     def get_series_id(self) -> None:
-        print(self._series.keys())
+        json_map = {}
         with open("series_data.json", "r") as file:
             json_map = json.load(file)
         self._series_ids = {}
-        for i in self._series.keys():
+        for i in json_map.keys():
             self._series_ids[i] = json_map[i]
 
 
@@ -49,9 +49,10 @@ class SeriesFormatter:
     '''
         Function for querying data and compiling into appropriate data frames
     '''
-    def pull_compile_data(self):
+    def pull_compile_data(self, df_dict: dict) -> None:
+        return_dict = {}
         for name in self._series_ids:
-            self._dfs[name] = wbgapi.data.DataFrame(self._series_ids[name], self._series[name]).transpose()
+            return_dict[name] = wbgapi.data.DataFrame(df_dict[name], df_dict[name]).transpose()
 
 
 
