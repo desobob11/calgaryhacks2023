@@ -18,10 +18,7 @@ def BuildPage():
                  children=[
                      BuildNavbar()
                     ]),
-        html.Div(id='viewbox',
-                 children=[
-                     BuildViewBox()
-                 ])
+                    BuildViewBox()
     ])
     
 def BuildNavbar():
@@ -44,7 +41,14 @@ def BuildDropDownMenu(id, label, menu_items):
     return drop_down_menu
     
 def BuildViewBox():
-    pass
+    view_box = html.Div(
+        id='view-box', 
+        children=[
+        html.Div(id="filter-section", children="Filter Settings"), 
+        html.Div(id="graph-section", children="Graphs")
+    ])
+    
+    return view_box
     
 
 external_stylesheets = ['./app.css', dbc.themes.BOOTSTRAP]

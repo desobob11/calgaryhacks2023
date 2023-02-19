@@ -1,7 +1,22 @@
 body, html {
     font-family: sans-serif;
     background-color: #3e4a72;
+    height: 100vh;
+    width: 100vw;
 }
+
+.react-entry-point {
+    height: 100vh;
+    width: 100vw;
+}
+
+.all {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    border-style: solid;
+}
+
 h1, h2, h3, h4, h5, h6 {
     color: #7773b7;
 }
