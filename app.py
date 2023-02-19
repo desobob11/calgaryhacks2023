@@ -17,7 +17,11 @@ def BuildPage():
         html.Div(id='navbar',
                  children=[
                      BuildNavbar()
-                    ])
+                    ]),
+        html.Div(id='viewbox',
+                 children=[
+                     BuildViewBox()
+                 ])
     ])
     
 def BuildNavbar():
@@ -39,7 +43,9 @@ def BuildDropDownMenu(id, label, menu_items):
     drop_down_menu = dbc.DropdownMenu(id=id, label=label, children = drop_down_options, nav=True)
     return drop_down_menu
     
-
+def BuildViewBox():
+    pass
+    
 
 external_stylesheets = ['./app.css', dbc.themes.BOOTSTRAP]
 

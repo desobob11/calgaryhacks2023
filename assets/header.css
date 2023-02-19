@@ -16,3 +16,11 @@
     width: 100%;
     border-bottom: thin black solid;
 }
+
+#view-box {
+    display:flex;
+    margin-top: 20px;
+    width: 90%;
+    height: 80%;
+    border: 1px black solid;
+}
