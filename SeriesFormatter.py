@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
     and formats date into usable form
 
 '''
-class Seriesormatter:
+class SeriesFormatter:
 
     def __init__(self):
         #TODO: hardcode for now, REMEMBER THIS SHOULD BE INPUT BY JSON AT THE END
@@ -57,7 +57,15 @@ class Seriesormatter:
 
 
 def main():
-
+    '''
+    sf = Seriesormatter()
+    sf.get_series_id()
+    sf.pull_compile_data()
+    df = None
+    for i in sf._series:
+        df = sf._dfs[i]
+    pd.DataFrame(df).to_csv("TestingData.csv")
+    '''
     # TODO: FIGURE OUT HOW AND WHEN THIS RUNS
 
 
